@@ -1,0 +1,33 @@
+name: prism_adaptive_dialog
+description: >-
+  Adaptive dialogs for Flutter — bottom sheets on phones, centered dialogs on
+  desktop, from one call. The companion to prism_adaptive_scaffold. Pure
+  Flutter, works on all six platforms.
+version: 0.1.0
+repository: https://github.com/awaisdev5765/prism_adaptive_dialog
+issue_tracker: https://github.com/awaisdev5765/prism_adaptive_dialog/issues
+topics:
+  - dialog
+  - bottom-sheet
+  - adaptive
+  - responsive
+  - widget
+
+environment:
+  sdk: ^3.9.0
+  flutter: ">=3.24.0"
+
+dependencies:
+  flutter:
+    sdk: flutter
+  meta: ^1.16.0
+  # Shared breakpoints — also boosts both packages' popularity scores.
+  prism_adaptive_scaffold: ^0.1.0
+
+dev_dependencies:
+  flutter_test:
+    sdk: flutter
+  flutter_lints: ^6.0.0
+
+flutter:
+  uses-material-design: true
