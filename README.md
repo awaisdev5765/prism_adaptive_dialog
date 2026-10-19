@@ -71,6 +71,12 @@ Shares breakpoints with `prism_adaptive_scaffold`, so dialogs inside its layouts
 
 All pure Flutter, all six platforms, MIT licensed, built to work together.
 
+## Screenshot
+
+<p align="center">
+  <img src="doc/screenshot.png" alt="prism_adaptive_dialog — centered dialog on desktop" width="420">
+</p>
+
 ## License
 
 MIT — see [LICENSE](LICENSE).
