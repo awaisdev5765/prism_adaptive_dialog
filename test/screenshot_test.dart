@@ -39,21 +39,26 @@ void main() {
       }
       await loader.load();
     }
-    final flutterRoot = File(Platform.resolvedExecutable)
-        .parent
-        .parent
-        .parent
-        .parent
-        .parent
-        .path;
-    final iconFont = File(
-      '$flutterRoot/bin/cache/artifacts/material_fonts/'
-      'MaterialIcons-Regular.otf',
-    );
-    if (iconFont.existsSync()) {
+    // Walk up from the test runner binary to find the Flutter SDK's icon
+    // font — the exact depth varies between flutter/dart launch paths.
+    var sdkDir = File(Platform.resolvedExecutable).parent;
+    File? iconFont;
+    for (var i = 0; i < 8; i++) {
+      final candidate = File(
+        '${sdkDir.path}/bin/cache/artifacts/material_fonts/'
+        'MaterialIcons-Regular.otf',
+      );
+      if (candidate.existsSync()) {
+        iconFont = candidate;
+        break;
+      }
+      sdkDir = sdkDir.parent;
+    }
+    final resolved = iconFont;
+    if (resolved != null) {
       final loader = FontLoader('MaterialIcons')
         ..addFont(
-          Future.value(iconFont.readAsBytesSync().buffer.asByteData()),
+          Future.value(resolved.readAsBytesSync().buffer.asByteData()),
         );
       await loader.load();
     }
@@ -64,7 +69,7 @@ void main() {
     (tester) async {
       await loadFonts();
       tester.view.physicalSize = const Size(900, 700);
-      tester.view.devicePixelRatio = 2.0;
+      tester.view.devicePixelRatio = 1.0;
       addTearDown(tester.view.reset);
 
       late final BuildContext hostContext;
@@ -107,11 +112,11 @@ void main() {
           title: 'Delete item?',
           builder: (context) => const Text('This cannot be undone.'),
           actions: [
-            AdaptiveDialogAction.cancel(context),
+            AdaptiveDialogAction.cancel(hostContext),
             AdaptiveDialogAction.destructive(
-              context,
+              hostContext,
               label: 'Delete',
-              onPressed: () => Navigator.pop(context, true),
+              onPressed: () => Navigator.pop(hostContext, true),
             ),
           ],
         ),
