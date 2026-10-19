@@ -72,34 +72,31 @@ class PrismAdaptiveDialog {
         barrierColor ?? theme.colorScheme.scrim.withValues(alpha: 0.4);
 
     Widget content(BuildContext innerContext) => Column(
-          mainAxisSize: MainAxisSize.min,
-          crossAxisAlignment: CrossAxisAlignment.start,
-          children: [
-            if (title != null)
-              Padding(
-                padding: const EdgeInsets.only(bottom: 12),
-                child: Text(
-                  title,
-                  style: theme.textTheme.titleLarge,
-                ),
-              ),
-            Flexible(child: builder(innerContext)),
-            if (actions.isNotEmpty)
-              Padding(
-                padding: const EdgeInsets.only(top: 16),
-                child: Row(
-                  mainAxisAlignment: MainAxisAlignment.end,
-                  children: [
-                    for (final action in actions)
-                      Padding(
-                        padding: const EdgeInsets.only(left: 8),
-                        child: action,
-                      ),
-                  ],
-                ),
-              ),
-          ],
-        );
+      mainAxisSize: MainAxisSize.min,
+      crossAxisAlignment: CrossAxisAlignment.start,
+      children: [
+        if (title != null)
+          Padding(
+            padding: const EdgeInsets.only(bottom: 12),
+            child: Text(title, style: theme.textTheme.titleLarge),
+          ),
+        Flexible(child: builder(innerContext)),
+        if (actions.isNotEmpty)
+          Padding(
+            padding: const EdgeInsets.only(top: 16),
+            child: Row(
+              mainAxisAlignment: MainAxisAlignment.end,
+              children: [
+                for (final action in actions)
+                  Padding(
+                    padding: const EdgeInsets.only(left: 8),
+                    child: action,
+                  ),
+              ],
+            ),
+          ),
+      ],
+    );
 
     if (asBottomSheet) {
       return showModalBottomSheet<T>(
@@ -110,7 +107,8 @@ class PrismAdaptiveDialog {
         routeSettings: routeSettings,
         useRootNavigator: useRootNavigator,
         isScrollControlled: true,
-        shape: shape ??
+        shape:
+            shape ??
             const RoundedRectangleBorder(
               borderRadius: BorderRadius.vertical(top: Radius.circular(16)),
             ),
@@ -129,12 +127,11 @@ class PrismAdaptiveDialog {
       routeSettings: routeSettings,
       useRootNavigator: useRootNavigator,
       builder: (innerContext) => Dialog(
-        shape: shape ??
+        shape:
+            shape ??
             RoundedRectangleBorder(borderRadius: BorderRadius.circular(16)),
         child: ConstrainedBox(
-          constraints: BoxConstraints(
-            maxWidth: maxWidth ?? 420,
-          ),
+          constraints: BoxConstraints(maxWidth: maxWidth ?? 420),
           child: Padding(
             padding: const EdgeInsets.all(24),
             child: content(innerContext),
@@ -154,11 +151,10 @@ class AdaptiveDialogAction {
     BuildContext context, {
     Object? result,
     String label = 'Cancel',
-  }) =>
-      TextButton(
-        onPressed: () => Navigator.pop(context, result),
-        child: Text(label),
-      );
+  }) => TextButton(
+    onPressed: () => Navigator.pop(context, result),
+    child: Text(label),
+  );
 
   /// A primary action (e.g. "OK", "Confirm").
   static Widget primary(
@@ -166,11 +162,10 @@ class AdaptiveDialogAction {
     required String label,
     Object? result,
     VoidCallback? onPressed,
-  }) =>
-      FilledButton(
-        onPressed: onPressed ?? () => Navigator.pop(context, result),
-        child: Text(label),
-      );
+  }) => FilledButton(
+    onPressed: onPressed ?? () => Navigator.pop(context, result),
+    child: Text(label),
+  );
 
   /// A destructive action (e.g. "Delete") styled with the error color.
   static Widget destructive(
@@ -178,13 +173,12 @@ class AdaptiveDialogAction {
     required String label,
     Object? result,
     VoidCallback? onPressed,
-  }) =>
-      FilledButton(
-        style: FilledButton.styleFrom(
-          backgroundColor: Theme.of(context).colorScheme.error,
-          foregroundColor: Theme.of(context).colorScheme.onError,
-        ),
-        onPressed: onPressed ?? () => Navigator.pop(context, result),
-        child: Text(label),
-      );
+  }) => FilledButton(
+    style: FilledButton.styleFrom(
+      backgroundColor: Theme.of(context).colorScheme.error,
+      foregroundColor: Theme.of(context).colorScheme.onError,
+    ),
+    onPressed: onPressed ?? () => Navigator.pop(context, result),
+    child: Text(label),
+  );
 }

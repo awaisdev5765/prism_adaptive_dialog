@@ -60,8 +60,9 @@ void main() {
       expect(find.text('Delete item?'), findsOneWidget);
     });
 
-    testWidgets('presentation override forces dialog on compact',
-        (tester) async {
+    testWidgets('presentation override forces dialog on compact', (
+      tester,
+    ) async {
       await _pumpHost(tester, size: const Size(400, 800));
       // Pump a host that forces PresentationStyle.dialog.
       tester.view.reset();
@@ -148,9 +149,7 @@ void main() {
                       context,
                       title: 'Delete item?',
                       builder: (context) => const Text('Sure?'),
-                      actions: [
-                        AdaptiveDialogAction.cancel(context),
-                      ],
+                      actions: [AdaptiveDialogAction.cancel(context)],
                     );
                   },
                   child: const Text('Open'),
@@ -169,8 +168,9 @@ void main() {
       expect(result, isNull);
     });
 
-    testWidgets('barrier dismiss on bottom sheet pops with null',
-        (tester) async {
+    testWidgets('barrier dismiss on bottom sheet pops with null', (
+      tester,
+    ) async {
       Object? result = 'sentinel';
       tester.view.physicalSize = const Size(400, 800);
       tester.view.devicePixelRatio = 1.0;

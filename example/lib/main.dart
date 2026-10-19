@@ -37,9 +37,9 @@ class DemoPage extends StatelessWidget {
       ],
     );
     if (confirmed == true && context.mounted) {
-      ScaffoldMessenger.of(context).showSnackBar(
-        const SnackBar(content: Text('Item deleted')),
-      );
+      ScaffoldMessenger.of(
+        context,
+      ).showSnackBar(const SnackBar(content: Text('Item deleted')));
     }
   }
 
